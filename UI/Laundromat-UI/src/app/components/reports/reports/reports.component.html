@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-3">
+    <mat-form-field class="example-full-width" appearance="fill" style="padding: 10px;">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon> keyboard_arrow_down </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field class="example-full-width" appearance="fill" style="padding: 10px;">
+      <mat-label>Choose Report</mat-label>
+      <mat-select name="report" (selectionChange)="changeClient($event)">
+        <mat-option *ngFor="let report of reports" [value]="report.id">
+          {{report.description}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-6" style="float: right;">
+    <button mdbBtn type="button" color="default" mdbWavesEffect (click)="gotodashboard()">Dashboard</button>
+  </div>
+
+</div>
+
+  <div *ngIf="reportId==1">
+    <app-items-sold [date]="date"></app-items-sold>
+  </div>
+  <div *ngIf="reportId==3">
+    <app-accountant-report [date]="date"></app-accountant-report>
+  </div>
+

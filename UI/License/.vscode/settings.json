@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "D:\\Projects\\ABSA\\banking-system\\lib\\junit-platform-console-standalone-1.8.0-M1.jar",
+        "mysql-connector.jar"
+    ]
+}

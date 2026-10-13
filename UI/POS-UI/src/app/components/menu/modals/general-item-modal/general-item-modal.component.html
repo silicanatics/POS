@@ -1,0 +1,36 @@
+<div [formGroup]="generalItemForm">
+
+
+  <div class="card">
+    <div class="card-header" style="text-align: center;">
+      <h3>General Item</h3>
+    </div>
+
+    <div class="card-body">
+      <div class="row" style="padding: 5px;">
+         <div class="col-sm-3" style="padding: 5px;">
+          <strong style="margin-left: 5px;">Price:</strong>
+        </div>
+        <div class="col-sm-3" style="padding: 5px;">
+          <input #itemPrice id="itemPrice" type="number" onFocus="this.select()" formControlName="price"
+            (keyup.enter)="btnSave.click()">
+        </div>
+      </div>
+      <div class="row" style="padding: 5px;">
+        <div class="col-sm-3" style="padding: 5px;">
+          <strong style="margin-left: 5px;">Description:</strong>
+        </div>
+        <div class="col-sm-3" style="padding: 5px;">
+          <input #itemCaption type="text" onFocus="this.select()" (keyup.enter)="btnSave.click()"
+            formControlName="caption">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card-footer">
+      <button #btnSave class="btn btn-success form-control" (click)="createGeneralItem()">save</button>
+    </div>
+
+  </div>
+</div>

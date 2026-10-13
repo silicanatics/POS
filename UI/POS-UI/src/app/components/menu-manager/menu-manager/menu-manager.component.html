@@ -1,0 +1,306 @@
+<div class="row">
+  <div class="col_md_12">
+    <button mdbBtn type="button" color="default" mdbWavesEffect (click)="dashboard()">Dashboard</button>
+  </div>
+</div>
+<mat-tab-group mat-align-tabs="start" [(selectedIndex)]="selectedIndex">
+  <mat-tab label="Menu">
+    <div class="row">
+      <div class="col-md-4 block1">
+        <div class="card">
+          <div class="card-header">
+            <h3>menu Items</h3>
+            <div [formGroup]="menuSearchForm">
+              <input type="text"  formControlName="search" placeholder="menu item search....."> 
+              <a mdbBtn size="sm" gradient="purple" mdbWavesEffect (click)="searchItem()">
+                <mdb-icon fas icon="search"></mdb-icon>
+              </a>       
+              <button mdbBtn size="md" gradient="blue" mdbWavesEffect (click)="addNewMenu()" >Add New Menu</button>
+              <button mdbBtn size="md" gradient="blue" mdbWavesEffect (click)="SearchItemByBarCode()" >SearchByBarCode</button>
+            </div>       
+          </div>
+          <div class="card-body">
+            <div style="overflow: scroll;">
+              <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+                <!-- This is the tree node template for leaf nodes -->
+                <!-- There is inline padding applied to this node using styles.
+                 This padding value depends on the mat-icon-button width. -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+                  <div class="hover" (click)="getMenuItems(node)" [class.nodecolor]="node.id==nodeId">{{node.caption}}
+                  </div>
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                  <div class="mat-tree-node">
+                    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.caption">
+                      <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                      </mat-icon>
+                    </button>
+                    <div class="hover" (click)="getMenuItems(node)" [class.nodecolor]="node.id==nodeId">{{node.caption}}
+                    </div>
+                  </div>
+                  <!-- There is inline padding applied to this div using styles.
+                    This padding value depends on the mat-icon-button width.  -->
+                  <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+                    <ng-container matTreeNodeOutlet></ng-container>
+                  </div>
+                </mat-nested-tree-node>
+              </mat-tree>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <div class="col-md-8 block2">
+        <div class="row">
+          <div class="col-md-12" >
+            <div class="form-group" [formGroup]="menuItemForm">
+              <div class="row block3">
+                <div class="col-md-6">
+                  <div class="card" style="background-color: inherit;">
+                    <div class="card-header">
+                      <!-- <strong>{{selectdedNode!.nodeType!.description}} Node</strong> <br>
+                      <strong>{{selectdedNode.caption}}</strong> -->
+                      <strong>{{nodeDescription}}</strong>
+                      <input id="txtname" type="text" formControlName="parentCaption" class="form-control">
+
+
+                      <div class="col-md-12">
+                        <label>New Parent</label>
+                        <select class="custom-select" (change)="changeParent($event)" formControlName="parent">
+                          <!-- <option value="" disabled>Choose Item Type</option> -->
+                          <option *ngFor="let parent of parentList " [ngValue]="parent" [selected]="parent.id==parentId">{{parent.caption}}</option>
+                       </select>                 
+                      </div>
+
+
+
+                    </div>
+                    <div class="col-md-12">
+                      <label>Caption</label>
+                      <input id="txtname" type="text" formControlName="caption" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.caption.errors }" />
+                      <div *ngIf="submitted && f.caption.errors" class="invalid-feedback">
+                        <div *ngIf="f.caption.errors.required">Cption is required</div>
+                      </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="!has_Children">
+                      <label>Price</label>
+                      <input id="price" type="text" formControlName="price" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.caption.errors }" />
+                      <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.required">price is required</div>
+                      </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="!has_Children">
+                      <label>Bar Code</label>
+                      <input id="BarCode" type="text" formControlName="barcode" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" />
+                      <div *ngIf="submitted && f.barcode.errors" class="invalid-feedback">
+                        <div *ngIf="f.barcode.errors.required">barcode is required</div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <label>Item Type</label>
+                      <select class="custom-select" (change)="changeItemType($event)" formControlName="menuItemType">
+                        <!-- <option value="" disabled>Choose Item Type</option> -->
+                        <option *ngFor="let mit of menuItemTypeList " [ngValue]="mit" [selected]="mit.id==mitId">{{mit.description}}</option>
+                     </select>                 
+                    </div>
+
+                    <div class="card-footer">
+                      <div class="col_md_12">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <button mdbBtn type="button" color="default" mdbWavesEffect
+                              (click)="saveNewNode()">Save</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button mdbBtn type="button" color="red" mdbWavesEffect
+                              (click)="updateMenuNode()">update</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button mdbBtn type="button" color="red" mdbWavesEffect
+                              (click)="createNewMenuNode()">new</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <table class="table table-bordered table-striped table-sm">
+                    <thead>
+                      <tr>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Price
+                        </th>
+                        <th>
+                          Default
+                        </th>
+                        <th>
+                          Remove
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let opts of menuItemOptionsTMP">
+                        <td>
+                          {{opts.itemOption.description}}
+                        </td>
+                        <td>
+                          R{{opts.itemOption.price}}
+                        </td>
+                        <td>
+                          <input type="checkbox" [checked]="opts.defaultOption" (change)="changeOptionDefault(opts)">
+
+                        </td>
+                        <td (click)="removeOption(opts)">
+                          <img src=".\assets\trash.jpg" width="30" height="30">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+
+
+
+            </div>
+          </div>
+          <div class="col-md-12 block4">
+            <table class="table table-bordered table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Price
+                  </th>
+                  <th>
+                    Add
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let opts of itemOptions">
+                  <td>
+                    {{opts.description}}
+                  </td>
+                  <td>
+                    R{{opts.price}}
+                  </td>
+                  <td>
+                    <button (click)="addOption(opts)">Add</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Manage Options">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Price
+              </th>
+              <th>
+                Update
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let opts of itemOptions" (click)="clickOption(opts)">
+              <td>
+                {{opts.description}}
+              </td>
+              <td>
+                R{{opts.price}}
+              </td>
+              <td>
+                <button (click)="updateCurrentOption()">Update</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6" [formGroup]="ItemOptioForm">
+        <label>Name</label>
+        <input id="txtname2" type="text" formControlName="name" class="form-control" [readonly]="!newOption"
+          [ngClass]="{ 'is-invalid': submitted && j.name.errors }" />
+        <div *ngIf="submitted && j.name.errors" class="invalid-feedback">
+          <div *ngIf="j.name.errors.required">Name is required</div>
+        </div>
+        <label>Price</label>
+        <input id="txtname3" type="text" formControlName="price" class="form-control" [readonly]="!newOption"
+          [ngClass]="{ 'is-invalid': submitted && j.price.errors }" />
+        <div *ngIf="submitted && j.price.errors" class="invalid-feedback">
+          <div *ngIf="j.price.errors.required">Price is required</div>
+        </div>
+        <button (click)="createNewOption()">New</button>
+        <button (click)="saveOption()">Save</button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Menu Saved</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body" style="overflow: scroll; height: 50vh;">
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #mySearchModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Menu Search</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body" style="overflow: scroll; height: 50vh;">
+       <input  type="text" placeholder="barcode..." [(ngModel)] = 'barcode'>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="searchByBarCode()">Ok</button>
+  </div>
+</ng-template>

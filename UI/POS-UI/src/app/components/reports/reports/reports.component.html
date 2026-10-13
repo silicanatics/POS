@@ -1,0 +1,48 @@
+<div class="row">
+  <!-- <div class="col-md-3">
+    <mat-form-field class="example-full-width" appearance="fill" style="padding: 10px;">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon> keyboard_arrow_down </mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div> -->
+
+  <div class="col-md-3">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" (dateInput)="OnStartDateChange($event.value)">
+        <input matEndDate placeholder="End date" (dateInput)="OnEndDateChange($event.value)">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field class="example-full-width" appearance="fill" style="padding: 10px;">
+      <mat-label>Choose Report</mat-label>
+      <mat-select name="report" (selectionChange)="changeClient($event)">
+        <mat-option *ngFor="let report of reports" [value]="report.id">
+          {{report.description}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3" style="float: right;">
+    <button mdbBtn type="button" color="default" mdbWavesEffect (click)="gotodashboard()">Dashboard</button>
+  </div>
+
+</div>
+
+<div *ngIf="reportId==1">
+  <app-items-sold [date]="date"></app-items-sold>
+</div>
+<div *ngIf="reportId==3">
+  <app-accountant-report [startDate]="startDate" [endDate]="endDate"></app-accountant-report>
+</div>

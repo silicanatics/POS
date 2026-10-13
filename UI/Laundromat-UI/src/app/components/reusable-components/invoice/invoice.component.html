@@ -1,0 +1,383 @@
+<div class="row" style="padding: 10px;">
+    <div class="col-md-6">
+
+
+        <div class="row">
+            <div class="col-md-6" rowHeight="10vh">
+                <button class="block" [class.ProcessTypeCash]="CashProcess" mat-raised-button color="white"
+                    (click)="ProcessTypeClick('Cash')">
+                    <h1>Cash</h1>
+                </button>
+
+            </div>
+            <div class="col-md-6" rowHeight="10vh">
+                <button class="block" [class.ProcessTypeCard]="CardProcess" mat-raised-button color="white"
+                    (click)="ProcessTypeClick('Card')">
+                    <h1>Card</h1>
+                </button>
+            </div>
+        </div>
+
+        <mat-grid-list cols="3" rowHeight="10vh">
+            <mat-grid-tile style="border: 2px solid black;size: 30px;" *ngFor="let tile of tiles" [colspan]="tile.cols"
+                [rowspan]="tile.rows" [style.background]="tile.color">
+                <div *ngIf="tile.type == 'input'" class="block2">
+                    <input type="text" style="font-size: 30px;" value={{digits}} class="block2" />
+                </div>
+                <div *ngIf="tile.type == 'button'" class="block">
+                    <button mat-raised-button color="primary" (click)="ItemPurchase(tile.text)" class="block">
+                        <h1 style="font-size: 40px;">{{tile.text}}</h1>
+                    </button>
+                </div>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+
+
+    </div>
+    <div class="col-md-6 ">
+        <div class="row">
+            <div class="col-md-12">
+                <p style="font-size: 20px;">Total Invoice: R{{purchaseAmount.toFixed(2)}}</p>
+            </div>
+            <div class="col-md-12">
+                <p style="font-size: 20px;" class="block">Change: R{{Change.toFixed(2)}}</p>
+            </div>
+            <div class="col-md-12">
+                <button disabled={{!Proceed}} mat-raised-button color="accent" (click)="ProcessPurchase()"
+                    class="block">
+                    <h1 style="font-size: 40px;">Pay</h1>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div id="print-section_Old">
+                <h6 style="text-align: center;">invoice: {{purchasePayload.itemPurchase.purchaseInvoice.invoiceNumber}}
+                </h6>
+                <h6>Date: {{purchasePayload.itemPurchase.purchaseDate}}</h6>
+                <h6>Shahiems Fast Foods.</h6>
+                <h6>Eldorado Park.</h6>
+                <h6>Order#: {{purchasePayload.itemPurchase.purchaseInvoice.purchaseNumber}}</h6>
+
+                <hr />
+                <table class="table table-bordered table-striped table-sm">
+                    <tbody>
+                        <tr *ngFor="let item of this.purchasePayload.selectedItemPurchaseDetails;">
+                            <td>
+                                {{item.menuItem.items}}
+                            </td>
+                            <td>
+                                {{item.menuItem.caption}}
+                            </td>
+                            <div *ngIf="item.menuItem?.options">
+                                <mat-selection-list #options>
+                                    <mat-list-option *ngFor="let op of item.menuItemOptions">
+                                        <div *ngIf="op.itemOption.price > 0">
+                                            {{op.itemOption.description}} --R{{op.itemOption.price}}
+                                        </div>
+                                        <div *ngIf="op.itemOption.price == 0">
+                                            {{op.itemOption.description}}
+                                        </div>
+
+                                    </mat-list-option>
+                                </mat-selection-list>
+                            </div>
+                            <td>
+                                ==> R{{item.menuItem.price}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+                Total: R{{purchasePayload.itemPurchase.amount.toFixed(2)}} <br>
+                Amount Tendered: R{{purchasePayload.itemPurchase.amountTendered.toFixed(2)}} <br>
+                Change: R{{purchasePayload.itemPurchase.change_.toFixed(2)}} <br>
+            </div> -->
+
+        </div>
+
+        <table class="table table-bordered table-striped table-sm">
+
+            <thead>
+                <tr>
+                    <th>Item#</th>
+                    <th>Items</th>
+                    <th>Item Description</th>
+                    <th>Price</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of this.purchasePayload.selectedItemPurchaseDetails; let i = index">
+                    <td>
+                        {{i}}
+                    </td>
+                    <td>
+                        {{item.menuItem.items}}
+                    </td>
+                    <td>
+                        {{item.menuItem.caption}}
+                    </td>
+                    <td>
+                        R{{item.menuItem.price}}
+                    </td>
+            </tbody>
+
+        </table>
+
+        <strong>{{this.purchasePayload.selectedItemPurchaseDetails.length}} Items.</strong>
+
+
+        <div class="row">
+            <br>
+            <br>
+            <div class="col-sm-2">
+                <button type="button" #btnprint id="btnprint" printSectionId="print-section" ngxPrint
+                    (click)="clearSPID()">Pint Test</button>
+            </div>
+            <!-- <div class="col-sm-2">
+                <button type="button" #btnprint2 id="btnprint2" printSectionId="print-section-card" ngxPrint
+                    (click)="clearSPID()">Card Test </button>
+            </div> -->
+        </div>
+        <div>
+            <!-- <div *ngFor="let item of this.purchasePayload.selectedItemPurchaseDetails;">
+
+                <h5 style="padding-left: 5px;"> {{item.menuItem.items}} ==> {{item.menuItem.caption}} <span
+                        style="padding-left:20px"></span> R{{item.menuItem.price}} </h5>
+
+                <div *ngIf="item.menuItem?.options">
+
+                    <div *ngFor="let op of item.menuItemOptions">
+                        <div *ngIf="op.defaultOption==true">
+                            <div *ngIf="op.itemOption.selected==false">
+                                <div *ngIf="op.itemOption.price > 0">
+                                    <h5 style="padding-left: 20px;"> ==> No {{op.itemOption.description}}
+                                        --R{{op.itemOption.price}} </h5>
+                                </div>
+                                <div *ngIf="op.itemOption.price == 0">
+                                    <h5 style="padding-left: 20px;"> ==> No {{op.itemOption.description}} </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="op.defaultOption==false">
+                            <div *ngIf="op.itemOption.selected==true">
+
+                                <div *ngIf="op.itemOption.price > 0">
+                                    <h5 style="padding-left: 20px;"> ==> {{op.itemOption.description}}
+                                        --R{{op.itemOption.price}} </h5>
+                                </div>
+                                <div *ngIf="op.itemOption.price == 0">
+                                    <h5 style="padding-left: 20px;"> ==> {{op.itemOption.description}} </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div> -->
+
+            <div id="print-section" style="display: none;">
+                <h6 style="text-align: center;">invoice: {{purchasePayload.itemPurchase.purchaseInvoice?.invoiceNumber}}
+                </h6>
+                <h6>Date: {{purchasePayload.itemPurchase.purchaseDate}}</h6>
+                <h6>Shahiems Fast Foods.</h6>
+                <h6>Eldorado Park.</h6>
+                <h4>Order#: {{purchasePayload.itemPurchase.purchaseInvoice?.purchaseNumber}}</h4>
+
+                <hr />
+
+                <div *ngFor="let item of this.purchasePayload.selectedItemPurchaseDetails;">
+
+                    <h4 style="padding-left: 5px;"> {{item.menuItem.items}} ==> {{item.menuItem.caption}} <span
+                            style="padding-left:20px"></span> R{{item.menuItem.price}} </h4>
+
+                    <div *ngIf="item.menuItem?.options">
+
+                        <div *ngFor="let op of item.menuItemOptions">
+                            <div *ngIf="op.defaultOption==true">
+                                <div *ngIf="op.itemOption.selected==false">
+                                    <div *ngIf="op.itemOption.price > 0">
+                                        <h4 style="padding-left: 20px;"> ==> No {{op.itemOption.description}}
+                                            --R{{op.itemOption.price}} </h4>
+                                    </div>
+                                    <div *ngIf="op.itemOption.price == 0">
+                                        <h4 style="padding-left: 20px;"> ==> No {{op.itemOption.description}} </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="op.defaultOption==false">
+                                <div *ngIf="op.itemOption.selected==true">
+
+                                    <div *ngIf="op.itemOption.price > 0">
+                                        <h4 style="padding-left: 20px;"> ==> {{op.itemOption.description}}
+                                            --R{{op.itemOption.price}} </h4>
+                                    </div>
+                                    <div *ngIf="op.itemOption.price == 0">
+                                        <h4 style="padding-left: 20px;"> ==> {{op.itemOption.description}} </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr />
+                <h4 style="text-align: center;">Total: R{{purchasePayload.itemPurchase.amount.toFixed(2)}}<br>
+                    Amount Tendered: R{{purchasePayload.itemPurchase.amountTendered.toFixed(2)}}<br>
+                    Change: R{{purchasePayload.itemPurchase.change_.toFixed(2)}}
+                </h4>
+
+                <!-- <h4 style="text-align: center;">Amount Tendered: R{{purchasePayload.itemPurchase.amountTendered.toFixed(2)}}</h4> <br>
+                <h4 style="text-align: center;">Change: R{{purchasePayload.itemPurchase.change_.toFixed(2)}}</h4> <br> -->
+            </div>
+
+            <div id="print-section-card" style="display: none;">
+                <h6 style="text-align: center;">invoice: {{purchasePayload.itemPurchase.purchaseInvoice.invoiceNumber}}
+                </h6>
+                <h6>Date: {{purchasePayload.itemPurchase.purchaseDate}}</h6>
+                <h6>Shahiems Fast Foods.</h6>
+                <h6>Eldorado Park.</h6>
+                <h4>Order#: {{purchasePayload.itemPurchase.purchaseInvoice.purchaseNumber}}</h4>
+
+                <hr />
+
+
+                <div *ngFor="let item of this.purchasePayload.selectedItemPurchaseDetails;">
+
+
+                    <h4 style="padding-left: 5px;"> {{item.menuItem.items}} ==> {{item.menuItem.caption}} <span
+                            style="padding-left:20px"></span> R{{item.menuItem.price}} </h4>
+
+
+
+                    <div *ngIf="item.menuItem?.options">
+
+                        <div *ngFor="let op of item.menuItemOptions">
+                            <div *ngIf="op.defaultOption==true">
+                                <div *ngIf="op.itemOption.selected==false">
+                                    <div *ngIf="op.itemOption.price > 0">
+                                        <h4 style="padding-left: 20px;"> ==> No {{op.itemOption.description}}
+                                            --R{{op.itemOption.price}} </h4>
+                                    </div>
+                                    <div *ngIf="op.itemOption.price == 0">
+                                        <h4 style="padding-left: 20px;"> ==> No {{op.itemOption.description}} </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="op.defaultOption==false">
+                                <div *ngIf="op.itemOption.selected==true">
+
+                                    <div *ngIf="op.itemOption.price > 0">
+                                        <h4 style="padding-left: 20px;"> ==> {{op.itemOption.description}}
+                                            --R{{op.itemOption.price}} </h4>
+                                    </div>
+                                    <div *ngIf="op.itemOption.price == 0">
+                                        <h4 style="padding-left: 20px;"> ==> {{op.itemOption.description}} </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <hr />
+                <h4 style="text-align: center;">Total: R{{purchasePayload.itemPurchase.amount.toFixed(2)}}<br>
+                    Amount Tendered: R{{purchasePayload.itemPurchase.amountTendered.toFixed(2)}}<br>
+                    Change: R{{purchasePayload.itemPurchase.change_.toFixed(2)}}
+                </h4>
+
+                <!-- <h4 style="text-align: center;">Amount Tendered: R{{purchasePayload.itemPurchase.amountTendered.toFixed(2)}}</h4> <br>
+                <h4 style="text-align: center;">Change: R{{purchasePayload.itemPurchase.change_.toFixed(2)}}</h4> <br> -->
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- <p>Home page text: <input type="text" {{bodyText}} /></p>  -->
+    <!-- <div class="row">
+    <div class="col_md_6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 ">
+        
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('<<')">&lt;&lt;</button>
+                    </div>
+                    <div class="col-md-4 ">
+        
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('1')">1</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('2')">2</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('3')">3</button>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('4')">4</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('5')">5</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('6')">6</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('7')">7</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('8')">8</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('9')">9</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('C')">C</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('0')">0</button>
+                    </div>
+                    <div class="col-md-4 ">
+                        <button mat-fab color="warn" (click)="ItemPurchase('.')">.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="col_md_6">
+        <pdf-viewer [src]="invoiceImage" [render-text]="false" [show-borders]="true"> </pdf-viewer>
+    </div>
+</div> -->

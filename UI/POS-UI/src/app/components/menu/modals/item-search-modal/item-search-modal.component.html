@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+      <input type="text" placeholder="search..." class="form-control" (keyup)="onSearchChange($event)">
+    </div>
+    <div class="card-body" style="overflow: scroll; height: 50vh;">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Caption</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="tdoptions" *ngFor="let item of searchMenuItems; let i = index"
+            [class.tableRowselected]="item.id == selectedRow" (click)="searchItemSelected(item)">
+            <td>{{item.caption}}</td>
+            <td>R{{item.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- <button #btnSave class="btn btn-success form-control" (click)="createSearchItem()">save</button> -->
+  </div>

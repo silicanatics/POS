@@ -1,0 +1,3 @@
+interface Point {
+    barcode: string;    
+  }

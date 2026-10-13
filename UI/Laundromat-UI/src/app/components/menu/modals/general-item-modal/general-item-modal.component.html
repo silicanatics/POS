@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-header" style="text-align: center;">
+        <h3>General Item</h3>
+    </div>
+   
+    <div class="card-body">
+        <div class="row" style="padding: 5px;">
+            <div class="col-sm-3" style="padding: 5px;">
+                <strong style="margin-left: 5px;">Price:</strong>
+            </div>
+            <div class="col-sm-3" style="padding: 5px;">
+                <input #itemPrice id="itemPrice" [(ngModel)]="price" type="number" onFocus="this.select()"
+                    (keyup.enter)="btnSave.click()">
+            </div>
+        </div>
+        <div class="row" style="padding: 5px;">
+            <div class="col-sm-3" style="padding: 5px;">
+                <strong style="margin-left: 5px;">Description:</strong>
+            </div>
+            <div class="col-sm-3" style="padding: 5px;">
+                <input #itemCaption [(ngModel)]="caption" type="text" onFocus="this.select()" (keyup.enter)="btnSave.click()">
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row text-wrap" style="height: 10hv; ">
+        <mat-grid-list cols="4" rowHeight="11vh">
+          <mat-grid-tile style="border: 2px solid black;" *ngFor="let menuTile of menuTiles"
+            [colspan]="menuTile.cols" [rowspan]="menuTile.rows" [style.background]="menuTile.color">
+            <div *ngIf="menuTile.type == 'input'" class="block2">
+              <input type="text" style="font-size: 50px;" value=test234 class="block2">
+            </div>
+            <div *ngIf="menuTile.type == 'button'">
+              <button mdbBtn gradient="purple" mdbWavesEffect class="word-wrap"
+                (click)="menuItemClick(menuTile.menuItem)">
+    
+                <div *ngIf="menuTile.menuItem.icon == null">
+                  {{menuTile.menuItem.caption}}
+                </div>
+                <div *ngIf="menuTile.menuItem.icon != null">
+                  {{menuTile.menuItem.caption}} <mat-icon>{{menuTile.menuItem.icon}}</mat-icon>
+                </div>
+                <div *ngIf="menuTile.menuItem.menuLevel==3">
+                  R{{menuTile.menuItem.price.toFixed(2)|number:'1.0-2'}}
+                </div>
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+    
+      </div> -->
+    
+    <div class="card-footer">
+        <button #btnSave class="btn btn-success form-control" (click)="createGeneralItem()">save</button>
+    </div>
+    
+</div>

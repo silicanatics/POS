@@ -1,0 +1,472 @@
+<div *ngIf="menuLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<mat-tab-group mat-align-tabs="start" [(selectedIndex)]="selectedIndex" (selectedTabChange)="onTabChanged($event);">
+  <mat-tab label="Menu">
+    <div class="row" [class.collectModeBG]="collectMode" [class.deliverModeBG]="deliverMode"
+      [class.walkInModeBG]="walkInMode">
+      <div class="col-sm-4">
+        <a mdbBtn size="lg" gradient="purple" mdbWavesEffect (click)="search(mymodal)">
+          <mdb-icon fas icon="search"></mdb-icon>
+        </a>
+        <a mdbBtn size="md" gradient="purple" mdbWavesEffect (click)="openGeneralItemModal()">
+          <mdb-icon fas icon="bolt"></mdb-icon>General
+        </a>
+
+        <button mdbBtn type="button" color="primary" mdbWavesEffect (click)="back()">Back</button>
+      </div>
+      <div class="col-sm-4" style="text-align:right">
+        <div *ngIf="selectedCustomer.customer.id > 1">
+           
+          <h1><strong>  <span>{{purchModeDesc}} ==>  </span> {{selectedCustomer.customer.dbEntity.name}}
+              {{selectedCustomer.customer.customerAddresses[0].addressText}}</strong> </h1>
+          <br>
+        </div>
+      </div>
+      <div class="col-sm-4" style="text-align:right">
+
+        <!-- <h1> <strong>{{clickedButton}}</strong></h1> -->
+        <button mdbBtn type="button" color="primary" mdbWavesEffect (click)="Reset()">Reset</button>
+        <button mdbBtn type="button" color="default" mdbWavesEffect (click)="gotodashboard()"
+          [disabled]="this.selectedItemPurchaseDetails.length>0">Dashboard</button>
+      </div>
+
+    </div>
+    <!--Navigation buttons-->
+
+    <div class="row" style="padding: 10px;">
+
+      <div class="block1 col-sm-6">
+        <div *ngIf="showOptions==false">
+          <div *ngIf="!purchaseClicked" class="container">
+
+            <div class="row text-wrap" style="height: 10hv;">
+              <mat-grid-list cols="2" rowHeight="22vh">
+                <mat-grid-tile style="border: 2px solid black;" *ngFor="let menuTile of menuTiles"
+                  [colspan]="menuTile.cols" [rowspan]="menuTile.rows" [style.background]="menuTile.color">
+                  <div *ngIf="menuTile.type == 'input'" class="block2">
+                    <input type="text" style="font-size: 50px;" value=test234 class="block2">
+                  </div>
+                  <div *ngIf="menuTile.type == 'button'">
+                    <button mdbBtn gradient="purple" mdbWavesEffect class="word-wrap"
+                      style="width: 100vw; height: 100vw;" (click)="menuItemClick(menuTile.menuItem)">
+
+                      <div *ngIf="menuTile.menuItem.icon == null">
+                        <h4> {{menuTile.menuItem.caption}} </h4>
+                      </div>
+                      <div *ngIf="menuTile.menuItem.icon != null">
+                        <h4> {{menuTile.menuItem.caption}}</h4> 
+                        <img src="assets/{{menuTile.menuItem.icon}} " style="height: 60px;" alt="">
+                      </div>
+                      <div *ngIf="menuTile.menuItem.menuLevel==3">
+                        <div *ngIf="menuTile.menuItem.menuItemType.id==2">
+                          <h4> R{{menuTile.menuItem.price.toFixed(2)|number:'1.0-2'}}/KG</h4>
+                        </div>
+                        <div *ngIf="menuTile.menuItem.menuItemType.id!=2">
+                          <h4> R{{menuTile.menuItem.price.toFixed(2)|number:'1.0-2'}}</h4>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+
+            </div>
+          </div>
+        </div>
+        <div class="row" style="padding: 10px;" *ngIf="showOptions==true && !purchaseClicked">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  Selected Item: <strong>{{selectedItem.menuItem.caption}}</strong>
+                </td>
+
+              </tr>
+              <tr>
+                <td>
+                  Options: <strong>{{selectedItem.menuItemOptions.length}}</strong>
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+
+
+          <mat-grid-list cols="4" rowHeight="7vh">
+            <mat-grid-tile style="border: 2px solid black;" *ngFor="let menuOptionTile of menuOptionTiles"
+              [colspan]="menuOptionTile.cols" [rowspan]="menuOptionTile.rows" [style.background]="menuOptionTile.color">
+              <!-- <button mdbBtn gradient="yellow" mdbWavesEffect class="word-wrap"
+              (click)="menuItemOptionClick(menuOptionTile)">
+           
+              <div *ngIf="menuOptionTile.menuItemOption.itemOption.selected">
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price > 0">
+                  {{menuOptionTile.menuItemOption.itemOption.description}} <br>
+                  R{{menuOptionTile.menuItemOption.itemOption.price}}
+                </div>
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price == 0">
+                  {{menuOptionTile.menuItemOption.itemOption.description}} 
+                </div>
+              </div>
+              
+              <div *ngIf="!menuOptionTile.menuItemOption.itemOption.selected">
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price > 0">
+                 No==> {{menuOptionTile.menuItemOption.itemOption.description}} <br>
+                 R{{menuOptionTile.menuItemOption.itemOption.price}}
+                </div>
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price == 0">
+                 No==> {{menuOptionTile.menuItemOption.itemOption.description}} 
+                </div>
+              </div>
+                           
+         
+            </button> -->
+
+              <div class="custom-control custom-switch">
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price == 0">
+                  <input type="checkbox" [checked]="menuOptionTile.menuItemOption.itemOption.selected"
+                    class="custom-control-input" id={{menuOptionTile.menuItemOption.itemOption.description}}
+                    (click)="menuItemOptionClick(menuOptionTile)">
+                  <label class="custom-control-label" for={{menuOptionTile.menuItemOption.itemOption.description}}>
+                    {{menuOptionTile.menuItemOption.itemOption.description}} </label>
+                </div>
+                <div *ngIf="menuOptionTile.menuItemOption.itemOption.price > 0">
+                  <input type="checkbox" [checked]="menuOptionTile.menuItemOption.itemOption.selected"
+                    class="custom-control-input" id={{menuOptionTile.menuItemOption.itemOption.description}}
+                    (click)="menuItemOptionClick(menuOptionTile)">
+                  <label class="custom-control-label" for={{menuOptionTile.menuItemOption.itemOption.description}}>
+                    {{menuOptionTile.menuItemOption.itemOption.description}}
+                    R{{menuOptionTile.menuItemOption.itemOption.price}}</label>
+                </div>
+
+
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+
+        <div *ngIf="purchaseClicked" class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12">
+              <app-invoice [purchaseAmount]="price" [invoiceImage]="invoiceImage" [machinePrinters]="machinePrinters"
+                [purchasePayload]="purchasePayload" (getAmountEntered)="getAmountEntered($event)"
+                (paymentType)="getpaymentType($event)" (processPayment)="processPayment($event)">
+              </app-invoice>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!--Left side menu buttons-->
+      <div class="col-sm-6">
+        <div *ngIf="!paymentProcessed">
+
+          <div class="row">
+            <div class="col-sm-12 block6">
+
+
+              <table class="table " [class.collectModeBG]="collectMode" [class.deliverModeBG]="deliverMode"
+                [class.walkInModeBG]="walkInMode">
+                <thead>
+                  <tr>
+                    <th style="width: 10px;">Items</th>
+                    <th>Caption</th>
+                    <th>Unit Price</th>
+                    <th style="width: 100px;">Price</th>
+                    <th>Split</th>
+                    <th>Remove</th>
+                  </tr>
+                </thead>
+                <tbody [class.collectModeBG]="collectMode" [class.deliverModeBG]="deliverMode"
+                  [class.walkInModeBG]="walkInMode">
+                  <tr class="tdoptions" *ngFor="let item of selectedItemPurchaseDetails; let i = index"
+                    [class.tableRowselected]="item.id == selectedRow" (click)="tabRowClick(item)">
+                    <td (click)="openItemCountModal(i)">
+                      {{item.menuItem.items}}</td>
+                    <td (click)="toggleOptions2(item,i,$event)">
+                      {{item.menuItem?.caption}}
+                      <!-- <div *ngIf="item.menuItem?.options">
+                        <mat-selection-list (selectionChange)="onListSelectionChange($event,i)" #options>
+                          <mat-list-option *ngFor="let op of item.menuItemOptions" [value]="op"
+                            [selected]="op.itemOption.selected" (click)="priceChange(op,item.menuItem.items)">
+                            <div *ngIf="op.itemOption.price > 0">
+                              {{op.itemOption.description}} --R{{op.itemOption.price}}
+                            </div>
+                            <div *ngIf="op.itemOption.price == 0">
+                              {{op.itemOption.description}}
+                            </div>
+
+                          </mat-list-option>
+                        </mat-selection-list>
+                      </div> -->
+                    </td>
+                    <td>{{item.menuItem?.unitPrice|number :'2.2-2'}}</td>
+                    <td>{{item.menuItem?.price|number :'2.2-2'}}</td>
+                    <td (click)="splitSelectedItem(i)"><img src=".\assets\split.png" width="30" height="20"></td>
+                    <td (click)="removeSelectedItem(i)"><img src=".\assets\trash.jpg" width="30" height="20"></td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <!-- <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul> -->
+
+            </div>
+
+          </div>
+
+
+          <div *ngIf="!purchaseSuccessfullyProcessed && !purchaseClicked" class="row block4">
+
+            <div class="col-sm-3">
+              <button style="padding: 20px;word-wrap: break-word;white-space: normal;" value="" class="btn-xl"
+                mat-raised-button color="primary" (click)="menuItemsPurchase()">
+                Purchase!!!
+              </button>
+            </div>
+            <div class="col-sm-3">
+              <h1 style="font-weight: bold;">Total Price: R{{price.toFixed(2)}}</h1>
+              <h1 style="font-weight: bold;">Items# {{selectedItemPurchaseDetails.length}}</h1>
+            </div>
+            <div class="col-sm-3">
+
+              <ngx-barcode [bc-value]="value" [bc-display-value]="true"></ngx-barcode>
+              {{_keybuffer}}
+            </div>
+
+
+            <div class="col-sm-3">
+              <div *ngIf="purchaseSuccessfullyProcessed && !purchaseClicked">
+                <h3>Purchase Success</h3>
+                <h3>Total Purchase {{purchasePayload.itemPurchase.amount | currency:'R':'symbol'}} </h3>
+                <h3>Amount Tendered {{amountTendered | currency:'R':'symbol'}} </h3>
+                <h3>Change {{change | currency:'R':'symbol'}} </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="paymentProcessed" class="col-sm-6 block5">
+          <!-- <pdf-viewer [src]="invoiceImage" [render-text]="false" [show-borders]="false"> </pdf-viewer> -->
+
+          <!-- <ngx-extended-pdf-viewer [src]="invoiceImage" [showPrintButton]="true" [useBrowserLocale]=true height="50vh">
+          </ngx-extended-pdf-viewer> -->
+
+          <h1>Purchase Success</h1>
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <td>
+                  Amount Tendered:
+                </td>
+                <td>
+                  <h1>{{amountTendered | currency:'R':'symbol'}}</h1>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Total Purchase:
+                </td>
+                <td>
+                  <h1>{{purchasePayload?.itemPurchase?.amount | currency:'R':'symbol'}}</h1>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Change:
+                </td>
+                <td>
+                  <h1> {{change | currency:'R':'symbol'}}</h1>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  <!--Menu Tab Main Row-->
+
+  </mat-tab>
+  <mat-tab label="Clients">
+    <app-clients (newItemEvent)="updatePurchaseMode($event)" [addressReset]="addressReset" ></app-clients>
+  </mat-tab>
+  <mat-tab label="Deliveries & Collections">
+    <app-item-purchase (updatePurchaseItemEvent)="updatePurchaseItemEvent($event)" (reprintEvent)="reprintEvent($event)"
+      (completePurchaseItemEvent)="completePurchaseItemEvent($event)"></app-item-purchase>
+  </mat-tab>
+  <!-- <mat-tab label="Manage Menu"><app-menu-manager></app-menu-manager></mat-tab> -->
+</mat-tab-group>
+<button #resetBtn (click)="Reset()"></button>
+<input #barcodeInput id="barcodeid" [(ngModel)]="barcodeValueNew" type="text" (window:keypress)="onKey($event)"
+  (change)="clearTest()" autofocus autocomplete="false">
+<!-- Modals!!! -->
+
+<!-- <button #btnNewItem (click)="search(newIteModal)">.fgdfg.</button> -->
+<!-- <button #focusbutton (click)="doSomething()"></button> -->
+
+<ng-template #newIteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New Item Modal</h4>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body" style="overflow: scroll; height: 50vh;">
+        <table class="table table-striped" [class.collectModeBG]="collectMode" [class.deliverModeBG]="deliverMode"
+          [class.walkInModeBG]="walkInMode">
+          <thead>
+            <tr>
+              <th>Caption</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tdoptions" *ngFor="let item of searchMenuItems; let i = index"
+              [class.tableRowselected]="item.id == selectedRow" (click)="searchItemSelected(item)">
+              <td>{{item.caption}}</td>
+              <td>R{{item.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Search Modal</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-header">
+        <input type="text" placeholder="search..." class="form-control" (keyup)="onSearchChange($event)">
+      </div>
+      <div class="card-body" style="overflow: scroll; height: 50vh;">
+        <table class="table table-striped" [class.collectModeBG]="collectMode" [class.deliverModeBG]="deliverMode"
+          [class.walkInModeBG]="walkInMode">
+          <thead>
+            <tr>
+              <th>Caption</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tdoptions" *ngFor="let item of searchMenuItems; let i = index"
+              [class.tableRowselected]="item.id == selectedRow" (click)="searchItemSelected(item)">
+              <td>{{item.caption}}</td>
+              <td>R{{item.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div>
+</ng-template>
+
+<ng-template #generalItemModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">General Item</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="row">
+      <div class="col-sm-3">
+        Price
+      </div>
+      <div class="col-sm-6">
+        <input id="generalAmnt" autofocus type="number" (keyup.enter)="btnCreateItem.click()"
+          [(ngModel)]="generalItemAmount" onFocus="this.select()" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        Caption
+      </div>
+      <div class="col-sm-6">
+        <input type="text" placeholder="General Item" (keyup.enter)="btnCreateItem.click()"
+          [(ngModel)]="generalItemCaption">
+      </div>
+    </div>
+
+    <button #btnCreateItem class="form-control btn btn-success" (click)="createGeneralItem()">Create</button>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #generalItemMenuModal let-modal>
+  <mat-grid-list cols="2" rowHeight="11vh">
+    <mat-grid-tile style="border: 2px solid black;" *ngFor="let menuTile of menuTiles2" [colspan]="menuTile.cols"
+      [rowspan]="menuTile.rows" [style.background]="menuTile.color">
+      <div *ngIf="menuTile.type == 'input'" class="block2">
+        <input type="text" style="font-size: 50px;" value=test234 class="block2">
+      </div>
+      <div *ngIf="menuTile.type == 'button'">
+        <button mdbBtn gradient="purple" mdbWavesEffect class="word-wrap" (click)="menuItemClick(menuTile.menuItem)">
+
+          <div *ngIf="menuTile.menuItem.icon == null">
+            {{menuTile.menuItem.caption}}
+          </div>
+          <div *ngIf="menuTile.menuItem.icon != null">
+            {{menuTile.menuItem.caption}} <mat-icon>{{menuTile.menuItem.icon}}</mat-icon>
+          </div>
+          <div *ngIf="menuTile.menuItem.menuLevel==3">
+            R{{menuTile.menuItem.price.toFixed(2)|number:'1.0-2'}}
+          </div>
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+<ng-template #itemsCountModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Items Count</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    count!! {{testcount}}
+    <div class="row">
+      <div class="col-sm-6">
+
+        <input id="itemCountId" name="itemCountId1" autocomplete="number123" value="itemsCount" type="number"
+          (keyup.enter)="btnChangeItemCount.click()" [(ngModel)]="itemsCount" onFocus="this.select()" />
+      </div>
+    </div>
+
+
+    <button #btnChangeItemCount class="btn btn-success" (click)="changeItemCount()">change</button>
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button> -->
+  </div>
+</ng-template>

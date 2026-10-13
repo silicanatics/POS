@@ -1,0 +1,14 @@
+.git
+.angular
+.vscode
+coverage
+dist
+node_modules
+credentials.txt
+.env
+.env.*
+!.env.example
+npm-debug.log*
+Dockerfile*
+docker-compose*.yml
+DOCKER.md

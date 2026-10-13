@@ -1,0 +1,102 @@
+<!-- <nav style="text-align: center;">
+  <a routerLinkActive="active" routerLink="/purchases">Purchases
+  </a>
+  <span>&nbsp;</span> <span>&nbsp;</span>
+  <a routerLinkActive="active" routerLink="/menumanager">Menu Manager
+  </a>
+  <span>&nbsp;</span> <span>&nbsp;</span>
+  <a routerLinkActive="active" routerLink="/users">User Manager
+  </a>
+  <span>&nbsp;</span> <span>&nbsp;</span>
+  <a routerLinkActive="active" style="cursor: pointer; color: blue;" (click)="logout()">logout
+  </a>
+  <a routerLinkActive="active" style="cursor: pointer; color: blue;" (click)="test()">refresh
+  </a>
+</nav> -->
+
+<button mdbBtn type="button" gradient="peach"  mdbWavesEffect (click)="bashbtnclick('purch')">Menu Items</button>
+<button mdbBtn type="button" gradient="purple"  mdbWavesEffect (click)="bashbtnclick('menu')">Menu Manager</button>
+<button mdbBtn type="button" gradient="blue"  mdbWavesEffect (click)="bashbtnclick('users')">User Manager</button>
+<button mdbBtn type="button" gradient="night-fade"  mdbWavesEffect >Stock Capture</button>
+<button mdbBtn type="button" gradient="morpheus-den"  mdbWavesEffect (click)="bashbtnclick('reports')">Reports</button>
+<button mdbBtn type="button" gradient="aqua"  mdbWavesEffect (click)="bashbtnclick('logout')">Logout</button>
+
+<div class="row" style="padding: 5px;">
+  <div class="col-md-12">
+    <div class="row" style="padding: 5px;">
+      <div class="col-md-6">
+        <div style="display: block;">
+          <div class="card">
+            <div class="card-header">
+              <header style="text-align: center;">Year To Date Sales</header>
+              <div class="card-body">
+                <canvas id="test" mdbChart [chartType]="chartType_line" [datasets]="chartDatasets_line" 
+                  [labels]="chartLabels_line" [colors]="chartColors_line" [options]="chartOptions_line" [legend]="true"
+                  (chartHover)="chartHovered($event)" (chartClick)="chartClicked('line')">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div style="display: block;">
+          <div class="card">
+            <div class="card-header">
+              <header style="text-align: center;">Selected Daily Sales</header>
+              <div class="card-body">
+                <canvas mdbChart [chartType]="chartType_bar" [datasets]="chartDatasets_bar" [labels]="chartLabels_bar"
+                  [colors]="chartColors_bar" [options]="chartOptions_bar" [legend]="true"
+                  (chartHover)="chartHovered($event)" (chartClick)="chartClicked('bar')">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding: 5px;">
+      <div class="col-md-6">
+        <div style="display: block;">
+          <div class="card">
+            <div class="card-header">
+              <header style="text-align: center;">Year To Date Sales</header>
+              <div class="card-body">
+                <canvas mdbChart [chartType]="chartType_pie" [datasets]="chartDatasets_pie" [labels]="chartLabels_pie"
+                  [colors]="chartColors_pie" [options]="chartOptions_pie" [legend]="true"
+                  (chartHover)="chartHovered($event)" (chartClick)="chartClicked('pie')">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div style="display: block;">
+          <div class="card">
+            <div class="card-header">
+              <header style="text-align: center;">Selected Daily Sales</header>
+              <div class="card-body">
+                <canvas mdbChart [chartType]="chartType_radar" [datasets]="chartDatasets_radar"
+                  [labels]="chartLabels_radar" [colors]="chartColors_radar" [options]="chartOptions_radar"
+                  [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked('radar')">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-6" >
+    <div class="card" >
+      <div class="card-header">
+       <h1 style="text-align: center;">{{selectedGraph}} chart</h1>  
+      </div>
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div> -->
+</div>

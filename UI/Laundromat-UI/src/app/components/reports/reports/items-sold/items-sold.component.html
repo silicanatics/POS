@@ -1,0 +1,71 @@
+<div class="card">
+  <!-- <div class="card-header"> -->
+    <!-- <input type="date" [(ngModel)]="date" (change)="test()" style="padding-left: 40px;"> -->
+
+    <!-- <mat-form-field class="example-full-width" appearance="fill" style="padding: 10px;">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" (dateInput)="OnDateChange($event.value)">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Report</mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="report" (selectionChange)="changeClient($event)">
+        <mat-option *ngFor="let report of reports" [value]="report.id">
+          {{report.description}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  <!-- </div> -->
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-8" style="height: 90vh;overflow-y: scroll;">
+        <table mat-table [dataSource]="dataSource" class="report-table">
+          <!-- Position Column -->
+
+
+          <ng-container matColumnDef="ParentCaption">
+            <th mat-header-cell *matHeaderCellDef> ParentCaption </th>
+            <td mat-cell *matCellDef="let element"> {{element.ParentCaption}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Caption">
+            <th mat-header-cell *matHeaderCellDef> Caption </th>
+            <td mat-cell *matCellDef="let element"> {{element.Caption}} </td>
+          </ng-container>
+          
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Sales">
+            <th mat-header-cell *matHeaderCellDef> Sales </th>
+            <td mat-cell *matCellDef="let element"> {{element.Sales}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="TotalPrice">
+            <th mat-header-cell *matHeaderCellDef> TotalPrice </th>
+            <td mat-cell *matCellDef="let element"> R{{element.TotalPrice|number: '2.2-2'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true""></tr> -->
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div class="col-sm-4">
+        <h1>Totals</h1>
+        <h1>Price : R{{totalPrice|number: '2.2-2'}}</h1>
+        <h1>Sales : {{totalSales}}</h1>
+        <div style="display: block">
+          <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels"
+            [colors]="barChartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

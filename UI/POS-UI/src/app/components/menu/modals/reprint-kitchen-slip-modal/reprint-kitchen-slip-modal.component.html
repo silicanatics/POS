@@ -1,0 +1,22 @@
+<h3 #caption></h3>
+<table class="table">
+                <thead>
+                  <tr>    
+                    <th>Items</th>               
+                    <th>Caption</th>                    
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let item of purchasePayload.selectedItemPurchaseDetails; let i = index">
+                    <td >
+                        {{item.menuItem.items}}
+                    </td>
+                    <td >
+                        {{item.menuItem?.caption}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+<button #btnSave class="btn btn-success" (click)="save(true)">Yes</button>
+<button #btnSave class="btn btn-success" (click)="save(false)">No</button>

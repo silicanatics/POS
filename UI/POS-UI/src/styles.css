@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~material-icons/iconfont/material-icons.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.tableRowselected{ background-color: rgb(20, 205, 238); }
+.table{
+cursor: pointer;
+}
+
+.numberInput{
+  width: 40px;
+  background-color:inherit;
+}
+div.block1 {
+    border: 1px solid black;
+    background-color:yellowgreen;
+    height: 85vh;
+    width: 50vw;
+    overflow: scroll;
+    padding: 10px;
+  }
+  div.block2 {
+    border: 1px solid black;
+    background-color: lightblue;
+    height: 60vh;
+    width: 50vw;
+    overflow: scroll;
+    padding: 10px;
+  }
+  div.block3 {
+    border: 1px solid black;
+    background-color:wheat;
+    height: 10vh;
+    width: 50vw;
+    overflow: scroll;
+    padding: 10px;
+  }
+  div.block4 {
+    border: 1px solid black;
+    background-color:beige;
+    height: 20vh;
+    width: 50vw;
+    overflow: scroll;
+    padding: 1px;
+  }
+  div.block5 {
+    border: 1px solid rgb(77, 231, 16);
+    /* background-color:cyan; */
+    height: 70vh;
+    width: 50vw;
+    overflow: scroll;
+    padding: 1px;
+    position: relative;
+  }

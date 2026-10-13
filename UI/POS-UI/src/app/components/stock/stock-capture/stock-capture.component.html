@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col_md_12">
+    <button mdbBtn type="button" color="default" mdbWavesEffect (click)="dashboard()">Dashboard</button>
+    <button mdbBtn size="md" gradient="blue" mdbWavesEffect (click)="updateAllStock()">Update All Stock</button>
+  </div>
+</div>
+
+<div *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="row" [formGroup]="customerForm">
+  <div class="col-sm-6 block3" >
+    <table class="table">
+      <thead>
+        <tr>
+          <!-- <td><input type="text" placeholder="item name.." formControlName="customerName" (keyup)="onNameInputKey($event)"> </td>
+              <td><input type="text" placeholder="barcode" formControlName="customerContact" (keyup)="onContactInputKey($event)"></td> -->
+          <td><input type="text" placeholder="item name.." formControlName="customerName"> </td>
+          <td><input type="text" placeholder="barcode" formControlName="customerContact"></td>
+          <td><button (click)="doCustomerFilter()">...</button> </td>
+          <td>Search</td>
+        </tr>
+        <tr>
+          <th>Item Description</th>
+          <!-- <th>Barcode</th> -->
+          <th>Date Captured</th>
+          <!-- <th>Start Date</th> -->
+          <th>Upload Reciept</th>
+          <!-- <th>End Date</th> -->
+          <!-- <th>initialQuantity</th>
+              <th>soldQuantity</th>
+              <th>quantityLeft</th>
+              <th>current</th>
+              <th>price</th>
+              <th>sequence</th> -->
+
+        </tr>
+      </thead>
+      <tbody>
+        <div *ngIf="loading">
+          <mat-spinner></mat-spinner>
+        </div>
+        <tr class="tdoptions" *ngFor="let stockStorage of filteredStockStorages; let i = index"
+          [class.tableRowselected]="stockStorage.id == selectedStockStorageRow"
+          (click)="stockStorageRowClick(stockStorage)" style="height: 5px;">
+          <td>
+            {{stockStorage.stockItem.caption}}</td>
+          <!-- <td>
+            {{stockStorage.stockItem.menuItem.barcode}}</td> -->
+          <td>
+            {{stockStorage.dateCaptured | date: 'dd MMM yyyy'}}</td>
+          <!-- <td>
+            {{stockStorage.startDate | date: 'dd MMM yyyy'}}</td> -->
+            <td>
+              <label class="btn btn-default p-0">
+                <input type="file" (change)="selectFile($event)" />
+              </label>
+            </td>
+          <!-- <td>
+            {{stockStorage.endDate | date: 'dd MMM yyyy'}}</td> -->
+
+          <!-- <td>
+                {{stockStorage.initialQuantity}}</td>
+              <td>
+                {{stockStorage.soldQuantity}}</td>
+              <td>
+                {{stockStorage.quantityLeft}}</td>
+              <td>
+                {{stockStorage.current}}</td>
+              <td>
+                {{stockStorage.price}}</td>
+              <td>
+                {{stockStorage.sequence}}</td> -->
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-6">
+
+    <div class="card">
+      <div class="card-header">
+        Item Detail...
+      </div>
+      <div class="card-body">
+        <label for="1">Item Name <input id="1" class="form-control" type="text" formControlName="itemName"> </label>
+        <label for="2">Date Captured <input id="2" class="form-control" type="text" formControlName="dateCaptured">
+        </label>
+        <label for="9">Start Date <input id="9" class="form-control" type="text" formControlName="startDate"></label>
+        <label for="3">End Date <input id="3" class="form-control" type="text" formControlName="endDate"></label>
+        <label for="4">Initial Quantity <input id="4" class="form-control" type="text"
+            formControlName="initialQuantity"></label>
+        <label for="6">Quantity Left <input id="6" class="form-control" type="text"
+            formControlName="quantityLeft"></label>
+        <label for="8">Sold Quantity <input id="8" class="form-control" type="text"
+            formControlName="soldQuantity"></label>
+        <label for="5">Stock Price <input id="5" class="form-control" type="text" formControlName="price"></label>
+        <label for="5">Item Cost Price <input id="5" class="form-control" type="text" formControlName="itemCostPrice"></label>
+        <label for="5">Item Resell Price <input id="5" class="form-control" type="text" formControlName="itemResellPrice"></label>
+        <label for="5">Profit <input id="5" class="form-control" type="text" formControlName="profit"></label>
+        <label for="7">Sequence <input id="7" class="form-control" type="text" formControlName="sequence"></label>
+
+
+
+
+
+      </div>
+      <div class="card-footer">
+        <button mdbBtn type="button" color="default" mdbWavesEffect (click)="saveStockStorage()">Save</button>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

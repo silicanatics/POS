@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # MySQL Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: pos-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Sondeck@123
+      MYSQL_DATABASE: posdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Sondeck@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - pos-network
+
+  # POS API Application Service
+  pos-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pos-api
+    environment:
+      # Database connection
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/posdb?allowPublicKeyRetrieval=false&useSSL=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Sondeck@123
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      # JPA/Hibernate
+      SPRING_JPA_HIBERNATE_DDL_AUTO: drop-and-create
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      # Security
+      SPRING_SECURITY_USER_NAME: shahiem
+      SPRING_SECURITY_USER_PASSWORD: test123
+      # JWT
+      JWT_SECRET: secret
+      JWT_EXPIRATIONDATEINMS: 43200000
+      JWT_REFRESHEXPIRATIONDATEINMS: 39600000
+      # Java settings
+      JAVA_OPTS: "-Xmx512m -Xms256m"
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - pos-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  pos-network:
+    driver: bridge

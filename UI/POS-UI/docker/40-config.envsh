@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+API_URL="${API_URL:-/pos}"
+export API_URL
+
+envsubst '${API_URL}' \
+  < /usr/share/nginx/html/POSUI/assets/config.template.json \
+  > /usr/share/nginx/html/POSUI/assets/config.json

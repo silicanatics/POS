@@ -1,0 +1,136 @@
+
+
+<div *ngIf="clientsLoading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="row"  >
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="form-group row">
+
+          <div class="col-md-4 col-form-label">
+            <div class="form-check form-check-inline mr-1" id="inline-radios">
+              <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1" (change)="optionsClick($event)">
+              <label class="form-check-label" for="inlineRadio1">{{mode1Text}}</label>
+            </div>
+            <div class="form-check form-check-inline mr-1">
+              <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2" (change)="optionsClick($event)">
+              <label class="form-check-label" for="inlineRadio2">{{mode2Text}}</label>
+            </div>
+            <div class="form-check form-check-inline mr-1">
+              <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio3" value="option3" (change)="optionsClick($event)" #mode3>
+              <label class="form-check-label" for="inlineRadio3">{{mode3Text}}</label>
+            </div>
+          </div>
+          <label class="col-md-8 col-form-label" for="inline-radios">Client List</label>
+        </div>
+
+      </div>
+      <div class="card-body" style="overflow-y:auto; height: 80vh;" [formGroup]="customerForm">
+        <div *ngIf="loading">
+          <mat-spinner></mat-spinner>
+        </div>
+        <div style="overflow:scroll; height: 80vh;">
+          <table class="table table-bordered table-striped table-lg">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Cell Number</th>
+                <th>Address</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td><input type="text" placeholder="name.." formControlName="customerName" (keyup)="onNameInputKey($event)"> </td>
+                <td><input type="text" placeholder="Cell Number.." formControlName="customerContact" (keyup)="onContactInputKey($event)"></td>
+                <td><input type="text" placeholder="Address.." formControlName="customerAddress" (keyup)="onAddressInputKey($event)"></td>
+                <td>New</td>
+              </tr>
+              <tr *ngFor="let cust of filteredCustomers;let indexOfelement=index;" (click)="tableRowSelected(cust)" [class.tableRowselected] = "cust.id == selectedRow">
+                <td>{{cust.id}}</td>
+                <td>{{cust.dbEntity.name}}</td>
+                <td *ngFor="let contact of cust.customerContacts">{{contact.contact}}</td>
+                <td *ngFor="let address of cust.customerAddresses">{{address.addressText}}</td>
+                <td>
+                  <span class="badge badge-success">Active</span>
+                </td>
+              </tr>
+  
+            </tbody>
+          </table>
+        </div>
+        <!--        
+        <nav>
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+        </nav> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-body" [class.collectModeBG] = "collectMode" [class.deliverModeBG] = "deliverMode" [class.walkInModeBG] = "walkInMode">
+          <form [formGroup]="customerForm">
+            <div class="form-group ">
+              <div class="col-md-4">
+                <label>Customer Name</label>
+                <input id="txtname" type="text" formControlName="customerName" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.customerName.errors }" />
+                <div *ngIf="submitted && f.customerName.errors" class="invalid-feedback">
+                  <div *ngIf="f.customerName.errors.required">Customer Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <div class="col-md-4">
+                <label>Cell Number</label>
+                <input type="text" formControlName="customerContact" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.customerContact.errors }" />
+                <div *ngIf="submitted && f.customerContact.errors" class="invalid-feedback">
+                  <div *ngIf="f.customerContact.errors.required">Contact is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group ">
+              <div class="col-md-12">
+                <label>Address</label>
+                <input type="text" formControlName="customerAddress" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.customerAddress.errors }" />
+                <div *ngIf="submitted && f.customerAddress.errors" class="invalid-feedback">
+                  <div *ngIf="f.customerAddress.errors.required">Address is required</div>
+                </div>
+              </div>
+            </div>
+   
+          </form>
+          <div class="text-center">
+            <button class="btn btn-primary " (click)="updatePurchaseMode()">Update Purchase</button>
+            <button class="btn btn-secondary" type="reset" (click)="Reset()">Reset</button>
+            <!-- <button id="btn">Click me</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map> -->
+    <div *ngIf="apiLoaded">
+      <google-map></google-map>
+    </div>
+  </div>
+
+</div>

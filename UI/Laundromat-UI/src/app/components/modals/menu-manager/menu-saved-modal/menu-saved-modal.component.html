@@ -1,0 +1,41 @@
+<p>Menu Item Saved!!!</p>
+<div *ngFor="let savedData of data.menuItems">
+
+  
+<h1>Item Name: {{savedData.caption}}</h1>
+<h1>Item Type: {{savedData.menuItemType.description}}</h1>
+<h1>Item Barcode: {{savedData.barcode}}</h1>
+<h1>Price: R{{savedData.price|number:'1.1-3'}}</h1>
+<h1>Options</h1>
+<table class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+            <th>
+                Option Name
+            </th>
+            <th>
+                Option Price
+            </th>
+            <th>
+                Default Option
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let option of data.menuItemOptions">
+            <td>
+                {{option.itemOption.description}}
+            </td>
+            <td>
+                {{option.itemOption.price}}
+            </td>
+            <td>
+                {{option.defaultOption}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+
+<button class="btn btn-success" (click)="close()">Close</button>

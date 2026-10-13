@@ -1,0 +1,72 @@
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.dll.config
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.pdb
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Antlr3.Runtime.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Newtonsoft.Json.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Net.Http.Formatting.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Helpers.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.WebHost.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Mvc.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Optimization.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Razor.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Razor.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\WebGrease.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Newtonsoft.Json.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Net.Http.Formatting.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Helpers.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.WebHost.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Mvc.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Optimization.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Razor.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Razor.xml
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Antlr3.Runtime.pdb
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.csprojResolveAssemblyReference.cache
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.pdb
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Cors.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.Cors.dll
+C:\Users\Nkateko.Mthembi\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.Cors.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.dll.config
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\thermalPrint.pdb
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Antlr3.Runtime.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Microsoft.Web.Infrastructure.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Newtonsoft.Json.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Net.Http.Formatting.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Cors.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Helpers.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.Cors.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.WebHost.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Mvc.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Optimization.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Razor.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Deployment.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Razor.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\WebGrease.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Net.Http.Formatting.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.Cors.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Newtonsoft.Json.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Helpers.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Http.WebHost.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Mvc.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Optimization.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.Razor.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Deployment.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\System.Web.WebPages.Razor.xml
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\bin\Antlr3.Runtime.pdb
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.csproj.AssemblyReference.cache
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.csproj.CoreCompileInputs.cache
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.csproj.CopyComplete
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.dll
+D:\User Data Back\POS\sourcecode\NEW\api\thermalPrint-api\dotNet\thermalPrint\thermalPrint\obj\Release\thermalPrint.pdb

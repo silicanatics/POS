@@ -1,0 +1,38 @@
+
+<form action="" [formGroup]="userForm">
+    <div class="row">
+        <div class="col-md-3"><button mdbBtn type="button" color="default" mdbWavesEffect (click)="gotodashboard()">Dashboard</button></div>
+     </div>
+    <div class="row">
+        <div class="col-md-6" style="padding:5px;">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    user info...
+                </div>
+
+                <div class="card-body" >
+                    <div class="row" style="padding:5px;">
+                        <div class="col-md-6">
+                            <input placeholder="name" class="form-control" type="text" formControlName="name"> <br/>
+                            <input placeholder="surname" class="form-control" type="text" formControlName="surname"> <br/>
+                            <input placeholder="initials" class="form-control" type="text" formControlName="initials"> <br/>
+                            <input placeholder="username" class="form-control" type="text" formControlName="username"> <br/>
+                            <input placeholder="password" class="form-control" type="text" formControlName="password">
+                        </div>
+                    </div>
+                    <div class="row" style="padding:5px;">
+                        <div class="col-md-3">
+                            <button class="form-control" (click)="save()">save</button>
+                        </div>
+                        <h1>{{msg}}</h1> 
+                    </div>
+                </div>
+                
+            </div>
+           
+        </div>
+        
+    </div>
+        
+ 
+</form>

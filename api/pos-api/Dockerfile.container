@@ -1,0 +1,16 @@
+FROM maven:3.9-eclipse-temurin-17 AS build
+
+WORKDIR /workspace
+COPY pom.xml ./
+COPY src ./src
+RUN mvn -B -DskipTests package \
+    && cp target/pos-api-0.0.1-SNAPSHOT.war /workspace/pos-api.war
+
+FROM eclipse-temurin:17-jre-jammy
+
+WORKDIR /app
+COPY --from=build --chown=10001:10001 /workspace/pos-api.war /app/pos-api.war
+
+USER 10001:10001
+EXPOSE 8091
+ENTRYPOINT ["java", "-jar", "/app/pos-api.war"]

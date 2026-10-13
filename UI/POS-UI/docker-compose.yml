@@ -1,0 +1,75 @@
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: posdb
+      MYSQL_USER: pos
+      MYSQL_PASSWORD: ${POS_DB_PASSWORD:?Set POS_DB_PASSWORD in .env}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping --protocol=tcp -h 127.0.0.1 -u root -p"$${MYSQL_ROOT_PASSWORD}" --silent
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${POS_RABBITMQ_USER:?Set POS_RABBITMQ_USER in .env}
+      RABBITMQ_DEFAULT_PASS: ${POS_RABBITMQ_PASSWORD:?Set POS_RABBITMQ_PASSWORD in .env}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  pos-api:
+    build:
+      context: ../../api/pos-api
+      dockerfile: Dockerfile.container
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/posdb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: pos
+      SPRING_DATASOURCE_PASSWORD: ${POS_DB_PASSWORD:?Set POS_DB_PASSWORD in .env}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${JPA_SCHEMA_MODE:-update}
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: ${POS_RABBITMQ_USER:?Set POS_RABBITMQ_USER in .env}
+      SPRING_RABBITMQ_PASSWORD: ${POS_RABBITMQ_PASSWORD:?Set POS_RABBITMQ_PASSWORD in .env}
+      SPRING_SECURITY_USER_NAME: ${POS_SECURITY_USER:?Set POS_SECURITY_USER in .env}
+      SPRING_SECURITY_USER_PASSWORD: ${POS_SECURITY_PASSWORD:?Set POS_SECURITY_PASSWORD in .env}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+    ports:
+      - "${POS_API_PORT:-8091}:8091"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  pos-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      API_URL: ${API_URL:-/pos}
+    ports:
+      - "${POS_UI_PORT:-8080}:80"
+    depends_on:
+      - pos-api
+
+volumes:
+  mysql_data:
+  rabbitmq_data:

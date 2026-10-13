@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{my_modal_title}}</h4>
+ 
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body" [formGroup]="newBarcodeForm">
+    <p> {{my_modal_content}}</p>
+    <div class="custom-control custom-switch">
+        <input type="checkbox" [checked]="addToRoot==true"
+        class="custom-control-input" id="rootSwitch"
+        (click)="rootSwitch()">
+        <label class="custom-control-label" for="rootSwitch">
+            Add To Root</label>
+    </div>
+    <div *ngIf="addToRoot!=true">
+        <select class="custom-select" (change)="changeParentId($event)" formControlName="itemParentId">
+            <!-- <option value="" disabled>Choose Item Type</option> -->
+            <option *ngFor="let pId of parentIdList " [ngValue]="pId" >{{pId.description}}</option>
+         </select> 
+    </div>
+
+
+   
+        <input type="text" placeholder="New Item Decription" class="form-control" formControlName="itemName" #caption >
+        <input type="number" placeholder="New Item Price" class="form-control" formControlName="itemPrice" (keyup.enter)="focusableSubmit.click()">
+        <button #focusableSubmit class="btn btn-success form-control" (click)="save()">Save</button>
+   
+</div>
+<div class="modal-footer">
+    <ngx-barcode [bc-value]="my_modal_barcode" [bc-display-value]="true"></ngx-barcode>
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+</div>

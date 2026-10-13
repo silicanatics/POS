@@ -1,0 +1,35 @@
+.report-table {
+    width: 100%;
+  }
+  
+  .mat-column-ParentCaption {
+    width: 140px;
+    /* border-right: 1px solid currentColor; */
+    font-weight: bold;
+    font-size: 20px;  
+  }
+
+  .mat-column-Caption {
+    width: 140px;
+    border-right: 1px solid currentColor;
+    font-weight: bold;
+    font-size: 20px;  
+  }
+  
+  .mat-column-Sales {
+    width: 32px;
+    padding-left: 16px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .mat-column-TotalPrice {
+    font-style: italic;
+  }
+  
+  .mat-column-TotalPrice {
+    width: 32px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+  }

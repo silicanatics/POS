@@ -1,0 +1,83 @@
+
+.btn-xl {
+  height:120px;
+  width:120px;
+}
+
+.tdoptions td {
+  cursor: pointer;
+}
+
+
+pdf-viewer {
+  display: block;
+}
+
+#printContainer { 
+  position: absolute; 
+}
+
+div.block1 {
+  border: 1px solid black;
+  background-color:yellowgreen;
+  height: 85vh;
+  width: 40vw;
+  overflow: scroll;
+  padding: 10px;
+}
+div.block2 {
+  border: 1px solid black;
+  background-color: lightblue;
+  height: 65vh;
+  width: 40vw;
+  overflow: scroll;
+  padding: 10px;
+}
+
+div.block4 {
+  background-color:beige;
+  height: 20vh;
+  width: 70vw;
+  overflow: scroll;
+  padding: 1px;
+}
+
+div.block5 {
+  border: 1px solid rgb(77, 231, 16);
+  /* background-color:cyan; */
+  height: 50vh;
+  width: 25vw;
+  overflow: scroll;
+  padding: 1px;
+  position: relative;
+}
+
+div.block6 {
+  border: 1px solid black;
+  background-color: green;
+  background-image:
+    linear-gradient(
+      green, yellowgreen
+    );
+  height: 65vh;
+  width: 40vw;
+  overflow: scroll;
+  padding: 10px;
+}
+.collectModeBG{
+  background-color: rgb(138, 209, 14);
+}
+.deliverModeBG{
+  background-color:rgb(206, 80, 31);
+}
+.walkInModeBG{
+  background-color:rgb(26, 95, 224);
+}
+
+
+.word-wrap{
+  overflow-wrap: break-word; 
+  height: 10vh;
+  width: 15vw;
+}
+

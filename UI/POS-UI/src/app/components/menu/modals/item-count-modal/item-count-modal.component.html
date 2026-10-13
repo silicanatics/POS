@@ -1,0 +1,10 @@
+
+<h3 #caption></h3>
+<h3>Items: {{currentCount}}</h3>
+<div style="height: 30px;">
+    <input  style="height:inherit" #itemCount [(ngModel)]="currentCount" 
+    type="number" onFocus="this.select()"
+    (keyup.enter)="btnSave.click()"><br>
+</div>
+
+<button #btnSave class="btn btn-success" (click)="save()">save</button>

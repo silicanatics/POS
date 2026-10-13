@@ -1,0 +1,5 @@
+{
+    "apiUrl": "http://localhost:8091/pos",
+    "apiUrl2": "http://pos-svr:8090/pos-api",
+    "apiUrl3": "http://192.168.8.147:8090/pos-api"
+}

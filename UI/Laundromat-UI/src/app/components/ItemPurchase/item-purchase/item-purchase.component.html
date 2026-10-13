@@ -1,0 +1,168 @@
+
+<div class="form-group row" style="padding: 10px;">
+    <div *ngIf="dataLoading">
+        <mat-spinner></mat-spinner>
+      </div>
+    <div class="col-md-4 col-form-label">
+      <div class="form-check form-check-inline mr-1" id="inline-radios">
+        <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio1" value="option1" (change)="optionsClick($event)">
+        <label class="form-check-label" for="inlineRadio1">Deliver</label>
+      </div>
+      <div class="form-check form-check-inline mr-1">
+        <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio2" value="option2" (change)="optionsClick($event)">
+        <label class="form-check-label" for="inlineRadio2">Collect</label>
+      </div>
+      <div class="form-check form-check-inline mr-1">
+        <input class="form-check-input" type="radio" name="inline-radios" id="inlineRadio3" value="option3" (change)="optionsClick($event)">
+        <label class="form-check-label" for="inlineRadio3">Walk In</label>
+      </div>
+    </div>
+    <div class="col-md-8" >
+        <button class="btn btn-success" (click)="refresh()">Refresh</button>
+    </div>
+  </div>
+<div class="row">
+    <div class="col-md-6 block1">
+        <div class="card">
+            <div class="card-body">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>
+                                Item
+                            </th>   
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Contact
+                            </th>
+                            <th>
+                                Address
+                            </th>
+
+                            <th>
+                                Purchase State
+                            </th>
+                            <th>
+                                Purchase Time
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let purchaseDetail of purchaseDetailList; let row=index"
+                            (click)="getPurchaseDetails(purchaseDetail)"
+                            [class.tableRowselected]="row == selectedRow2"
+                            (click)="test2(row)">
+                            <td>
+                                {{row}}
+                            </td>
+                            <td>
+                                {{purchaseDetail.itemPurchase.customer.dbEntity.name}}
+                            </td>
+                            <td>
+                               R{{purchaseDetail.itemPurchase.amount}}
+                            </td>
+                            <td>
+                                {{purchaseDetail.itemPurchase.customer.customerContacts[0].contact}}
+                            </td>
+                            <td>
+                                {{purchaseDetail.itemPurchase.customer.customerAddresses[0].addressText}}
+                            </td>
+                            <td>
+                                {{purchaseDetail.itemPurchase.purchaseState.description}}
+                            </td>
+                            <td>
+                                {{purchaseDetail.itemPurchase.purchaseDate}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12 block2">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Item Count
+                                </th>
+                                <th>
+                                    Memu Item
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                                <th>
+                                    Options
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let itempurchaseDetail of   itemPurchaseDetailList; let row=index"
+                                [class.tableRowselected]="itempurchaseDetail.id == selectedRow"
+                                (click)="test(itempurchaseDetail.id)">
+                                <td>
+                                    {{itempurchaseDetail.items}}
+                                </td>
+                                <td>
+                                    {{itempurchaseDetail.menuItem!.caption}}
+                                </td>
+                                <td>
+                                   R{{itempurchaseDetail.menuItem!.price * itempurchaseDetail.items|number: '2.2-2'}}
+                                </td>
+                                <td>
+                                    <ul
+                                        *ngFor="let itemPurchaseDetailOption of itemPurchaseDetailOptionList; let row2=index">
+                                        <div
+                                            *ngIf="itempurchaseDetail.id == itemPurchaseDetailOption.itemPurchaseDetail.id">
+                                            <li *ngIf="itemPurchaseDetailOption!.menuItemOption.defaultOption && !itemPurchaseDetailOption!.selected">
+                                                <div *ngIf="itemPurchaseDetailOption.itemOption.price > 0">
+                                                    {{itemPurchaseDetailOption!.itemOption!.description}}
+                                                    R{{itemPurchaseDetailOption.itemOption.price *
+                                                    itempurchaseDetail.items|number: '2.2-2'}}
+                                                </div>
+                                                <div *ngIf="itemPurchaseDetailOption.itemOption.price == 0">
+                                                    No {{itemPurchaseDetailOption!.itemOption!.description}}
+                                                </div>
+
+                                            </li>
+                                            <li *ngIf="!itemPurchaseDetailOption!.menuItemOption.defaultOption && itemPurchaseDetailOption!.selected">
+                                                <div *ngIf="itemPurchaseDetailOption.itemOption.price > 0">
+                                                    {{itemPurchaseDetailOption!.itemOption!.description}}
+                                                    R{{itemPurchaseDetailOption.itemOption.price *
+                                                    itempurchaseDetail.items|number: '2.2-2'}}
+                                                </div>
+                                                <div *ngIf="itemPurchaseDetailOption.itemOption.price == 0">
+                                                    {{itemPurchaseDetailOption!.itemOption!.description}}
+                                                </div>
+
+                                            </li>
+                                        </div>
+
+                                    </ul>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <strong> Total: {{total|number: '2.2-2' }} </strong>
+                    </div>
+
+                     <strong>{{msg}}</strong>  
+                    <button  class="btn btn-success" (click)="updatePurch()" >UpdatePurchase</button>
+                    <button  class="btn btn-success" (click)="completePurch()">CompletePurchase</button>
+                    <button  class="btn btn-success" (click)="reprint()">Reprint</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
